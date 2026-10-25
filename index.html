@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DemVid &amp; ArDem — Windows apps by Dandem</title>
   <meta name="description" content="DemVid runs the virtual machines you already have on Windows. ArDem keeps terminal, files, editor and browser on one SSH connection. Free downloads.">
-  <meta name="theme-color" content="#f2f5fa">
+  <meta name="theme-color" content="#e0ebfc">
   <meta property="og:title" content="DemVid & ArDem — Windows apps by Dandem">
   <meta property="og:description" content="Virtual machines, reimagined — and an SSH client that keeps everything on one connection.">
   <meta property="og:image" content="https://dem-work.com/assets/og.jpg">
@@ -17,22 +17,22 @@
     /* Light is the default theme; the dark one is the original DemVid look. */
     :root {
       color-scheme: light;
-      --bg: #f2f5fa; --bg-grad: linear-gradient(180deg, #f6f8fc 0%, #eef2f8 100%);
-      --glow-a: rgba(46, 139, 255, 0.11); --glow-b: rgba(20, 82, 255, 0.06); --grid: #d9e1ee; --grid-op: 0.5;
-      --panel: rgba(255, 255, 255, 0.84); --line: #dbe2ee; --line-2: #c8d2e2; --line-hi: #9dbbea;
-      --text: #121b2c; --text-2: #3a475d; --muted: #5d6a80; --dim: #8390a6;
+      --bg: #e0ebfc; --bg-grad: linear-gradient(180deg, #e7effd 0%, #dbe7fb 50%, #cfdff9 100%);
+      --glow-a: rgba(46, 139, 255, 0.40); --glow-b: rgba(20, 82, 255, 0.28); --grid: #b6cdf2; --grid-op: 0.7;
+      --panel: rgba(243, 248, 255, 0.88); --line: #c9daf3; --line-2: #b2c9ee; --line-hi: #78a2ea;
+      --text: #0f1b33; --text-2: #314869; --muted: #50668b; --dim: #7a8db0;
       --accent: #1f6fe0; --accent-text: #1a62d1; --accent-hover: #0d4bb0; --eyebrow: #1f6fe0;
-      --grad: linear-gradient(135deg, #3a8dff, #1858e0); --glow: 0 6px 18px rgba(31, 111, 224, 0.28); --glow-hover: 0 8px 26px rgba(31, 111, 224, 0.42);
-      --grad-text: linear-gradient(135deg, #101a2d 30%, #1f6fe0);
-      --tile: #e4eefd; --tile-ic: #1f6fe0; --ga: 0.5;
-      --header-bg: rgba(246, 248, 252, 0.82); --header-line: rgba(200, 210, 226, 0.8); --footer-line: #d6deeb;
-      --nav-hover-bg: rgba(31, 111, 224, 0.08); --nav-hover-text: #0d1726;
-      --ghost-bg: #ffffff; --ghost-line: #c8d2e2; --ghost-text: #1c2940; --ghost-hover-bg: #f1f6fe; --ghost-hover-line: #9dbbea; --ghost-hover-text: #0d1726;
-      --chip-bg: #e6eefc; --chip-line: #c2d5f5; --tab-bg: #ffffff;
-      --dl-line: #bcd1f4; --dl-bg: linear-gradient(160deg, rgba(46, 139, 255, 0.10), rgba(255, 255, 255, 0.92)); --dl-shadow: 0 12px 30px rgba(31, 111, 224, 0.10);
-      --card-shadow: 0 16px 40px rgba(20, 40, 80, 0.12);
-      --shot-line: #c9d3e3; --shot-shadow: 0 24px 60px rgba(16, 34, 72, 0.22);
-      --em-track: #dbe5f5; --em-dots: #7fa6e6; --em-ring: #2e8bff; --em-orb: #3a8dff;
+      --grad: linear-gradient(135deg, #3a8dff, #1858e0); --glow: 0 6px 20px rgba(31, 111, 224, 0.35); --glow-hover: 0 8px 28px rgba(31, 111, 224, 0.5);
+      --grad-text: linear-gradient(135deg, #0e2550 10%, #1a5fd6 55%, #3a8dff);
+      --tile: #d3e4fd; --tile-ic: #1a62d1; --ga: 0.8;
+      --header-bg: rgba(224, 235, 252, 0.88); --header-line: rgba(150, 184, 236, 0.6); --footer-line: #bcd0f0;
+      --nav-hover-bg: rgba(31, 111, 224, 0.12); --nav-hover-text: #0b1d40;
+      --ghost-bg: #f6faff; --ghost-line: #b2c9ee; --ghost-text: #16294b; --ghost-hover-bg: #e6f0ff; --ghost-hover-line: #78a2ea; --ghost-hover-text: #0b1d40;
+      --chip-bg: #d8e7fd; --chip-line: #a7c4f2; --tab-bg: #f6faff;
+      --dl-line: #95b7ec; --dl-bg: linear-gradient(160deg, rgba(46, 139, 255, 0.22), rgba(240, 246, 255, 0.92)); --dl-shadow: 0 14px 36px rgba(31, 111, 224, 0.20);
+      --card-shadow: 0 16px 40px rgba(31, 90, 200, 0.18);
+      --shot-line: #a9c3ec; --shot-shadow: 0 24px 60px rgba(20, 60, 140, 0.28), 0 0 44px rgba(46, 139, 255, 0.20);
+      --em-track: #c9dcf8; --em-dots: #5f8fe0; --em-ring: #2e8bff; --em-orb: #2e8bff;
       --font: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
       --mono: "Cascadia Mono", Consolas, ui-monospace, monospace;
     }
@@ -486,7 +486,7 @@
     const themeBtn = document.getElementById('theme');
     function applyTheme(t) {
       document.documentElement.dataset.theme = t;
-      document.querySelector('meta[name="theme-color"]').content = t === 'dark' ? '#0a0d15' : '#f2f5fa';
+      document.querySelector('meta[name="theme-color"]').content = t === 'dark' ? '#0a0d15' : '#e0ebfc';
       const label = t === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
       themeBtn.title = label;
       themeBtn.setAttribute('aria-label', label);

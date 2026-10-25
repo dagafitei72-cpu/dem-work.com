@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DemVid &amp; ArDem — Windows apps by Dandem</title>
+  <meta name="description" content="DemVid runs the virtual machines you already have on Windows. ArDem keeps terminal, files, editor and browser on one SSH connection. Free downloads.">
+  <meta name="theme-color" content="#0a0d15">
+  <meta property="og:title" content="DemVid & ArDem — Windows apps by Dandem">
+  <meta property="og:description" content="Virtual machines, reimagined — and an SSH client that keeps everything on one connection.">
+  <meta property="og:image" content="https://dem-work.com/assets/og.jpg">
+  <meta property="og:url" content="https://dem-work.com/">
+  <link rel="icon" href="favicon.ico">
+  <link rel="preconnect" href="https://api.github.com">
+  <style>
+    :root {
+      --bg: #0a0d15; --panel: rgba(14, 20, 36, 0.74); --line: #1e2b48; --line-2: #2a3654;
+      --text: #e9ecf4; --text-2: #b9c2d6; --muted: #8a95ad; --dim: #58637c;
+      --accent: #2e8bff; --accent-hi: #3aa6ff; --accent-2: #1452ff; --accent-text: #7fb4ff; --eyebrow: #5e9cff;
+      --grad: linear-gradient(135deg, #3aa6ff, #1452ff); --glow: 0 6px 26px rgba(46, 139, 255, 0.45);
+      --tile: #14244a; --tile-ic: #5eb2ff; --ok: #3ddc97;
+      --font: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+      --mono: "Cascadia Mono", Consolas, ui-monospace, monospace;
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 var(--font); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    body::before, body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1; }
+    body::before {
+      background:
+        radial-gradient(820px 600px at 85% -10%, rgba(46, 139, 255, 0.22), transparent 68%),
+        radial-gradient(700px 600px at -8% 105%, rgba(20, 82, 255, 0.16), transparent 68%),
+        linear-gradient(135deg, #0a0d15 0%, #0c1322 60%, #0a1020 100%);
+    }
+    body::after {
+      background-image: linear-gradient(#16233c 1px, transparent 1px), linear-gradient(90deg, #16233c 1px, transparent 1px);
+      background-size: 34px 34px; opacity: 0.45;
+      -webkit-mask-image: radial-gradient(ellipse 90% 80% at 70% 10%, #000, transparent 100%);
+      mask-image: radial-gradient(ellipse 90% 80% at 70% 10%, #000, transparent 100%);
+    }
+    a { color: var(--accent-text); text-decoration: none; }
+    a:hover { color: #a9cdff; }
+    img { max-width: 100%; display: block; }
+    .wrap { width: min(1160px, calc(100% - 32px)); margin: 0 auto; }
+    .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--eyebrow); }
+    .grad-text { background: linear-gradient(135deg, #fff 20%, #7fb4ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+    /* ---------- top bar */
+    header.top { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(12px); background: rgba(10, 13, 21, 0.72); border-bottom: 1px solid rgba(30, 43, 72, 0.7); }
+    .top .wrap { display: flex; align-items: center; gap: 18px; height: 64px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.02em; color: var(--text); font-size: 18px; white-space: nowrap; }
+    .brand .marks { display: flex; }
+    .brand .marks img { width: 28px; height: 28px; filter: drop-shadow(0 0 8px rgba(46, 139, 255, 0.45)); }
+    .brand .marks img + img { margin-left: -8px; }
+    .brand small { color: var(--muted); font-weight: 500; font-size: 13px; letter-spacing: 0; }
+    nav.links { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+    nav.links a { color: var(--text-2); padding: 8px 12px; border-radius: 9px; font-size: 14.5px; font-weight: 600; }
+    nav.links a:hover { color: #fff; background: rgba(24, 33, 58, 0.7); }
+
+    /* ---------- buttons */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 50px; padding: 0 24px; border-radius: 12px; font: 600 16px var(--font); cursor: pointer; border: 1px solid transparent; transition: filter 0.15s, box-shadow 0.15s, transform 0.08s, background 0.15s, border-color 0.15s; white-space: nowrap; }
+    .btn:active { transform: scale(0.97); }
+    .btn.primary { background: var(--grad); color: #fff; box-shadow: var(--glow); }
+    .btn.primary:hover { filter: brightness(1.1); box-shadow: 0 6px 34px rgba(46, 139, 255, 0.65); color: #fff; }
+    .btn.ghost { background: #121929; border-color: var(--line-2); color: #d6dcea; }
+    .btn.ghost:hover { background: #18213a; border-color: #3b4c76; color: #fff; }
+    .btn svg { width: 20px; height: 20px; flex: none; }
+    .btn .sub { font-weight: 500; font-size: 13px; opacity: 0.85; }
+
+    /* ---------- hero */
+    .hero { padding: 84px 0 40px; text-align: center; }
+    .hero h1 { font-size: clamp(36px, 6vw, 64px); line-height: 1.08; margin: 14px 0 18px; font-weight: 700; letter-spacing: -0.02em; }
+    .hero p.lead { max-width: 720px; margin: 0 auto; color: var(--text-2); font-size: clamp(16px, 2vw, 19px); }
+    .picks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 46px auto 0; max-width: 900px; text-align: left; }
+    .pick { position: relative; overflow: hidden; display: grid; grid-template-columns: auto 1fr; gap: 6px 18px; align-items: center; padding: 22px; border-radius: 20px; background: var(--panel); border: 1px solid var(--line); transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; }
+    .pick:hover { border-color: #2e4a80; transform: translateY(-3px); box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45), 0 0 30px rgba(46, 139, 255, 0.15); }
+    .pick img { grid-row: span 2; width: 76px; height: 76px; filter: drop-shadow(0 0 18px rgba(46, 139, 255, 0.45)); }
+    .pick h3 { margin: 0; font-size: 22px; }
+    .pick p { margin: 0; color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+    .pick .go { grid-column: 1 / -1; margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
+
+    /* ---------- emblem (as in DemVid) */
+    .emblem { position: relative; width: 210px; height: 210px; margin: 0 auto; }
+    .emblem svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+    .emblem .r { transform-box: view-box; transform-origin: 50% 50%; }
+    .emblem .ra { animation: spin 16s linear infinite; }
+    .emblem .rb { animation: spin 10s linear infinite reverse; }
+    .emblem .arc { animation: spin 7s linear infinite; filter: drop-shadow(0 0 6px rgba(46, 139, 255, 0.9)); }
+    .emblem .orb { animation: spin 3.4s linear infinite; filter: drop-shadow(0 0 5px #3aa6ff); }
+    .emblem .logos { position: absolute; inset: 0; display: grid; place-items: center; }
+    .emblem .logos img { position: absolute; width: 50%; animation: swap 8s ease-in-out infinite, float 1.7s ease-in-out infinite alternate; filter: drop-shadow(0 0 22px rgba(46, 139, 255, 0.7)); }
+    .emblem .logos img + img { animation-delay: -4s, 0s; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes float { from { translate: 0 3px; } to { translate: 0 -5px; } }
+    @keyframes swap { 0%, 42% { opacity: 1; scale: 1; } 50%, 92% { opacity: 0; scale: 0.9; } 100% { opacity: 1; scale: 1; } }
+
+    /* ---------- product sections */
+    section.product { padding: 90px 0 40px; scroll-margin-top: 64px; }
+    .p-head { display: flex; align-items: center; gap: 22px; margin-bottom: 26px; }
+    .p-head img { width: 92px; height: 92px; filter: drop-shadow(0 0 24px rgba(46, 139, 255, 0.5)); }
+    .p-head h2 { margin: 2px 0 4px; font-size: clamp(32px, 4.4vw, 46px); line-height: 1.1; letter-spacing: -0.015em; }
+    .p-head p { margin: 0; color: var(--text-2); font-size: 18px; }
+    .p-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 34px; align-items: start; }
+    .shot { border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: #05070d; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55), 0 0 40px rgba(46, 139, 255, 0.12); }
+    .shot-tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+    .shot-tabs button { border: 1px solid var(--line-2); background: #0f1524; color: var(--text-2); font: 600 13px var(--font); padding: 6px 13px; border-radius: 9px; cursor: pointer; }
+    .shot-tabs button.on { background: var(--grad); color: #fff; border-color: transparent; box-shadow: 0 2px 14px rgba(46, 139, 255, 0.45); }
+    .desc { color: var(--text-2); margin: 0 0 22px; }
+    .features { display: grid; gap: 12px; margin: 0 0 26px; padding: 0; list-style: none; }
+    .features li { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: start; padding: 14px 16px; border-radius: 14px; background: var(--panel); border: 1px solid var(--line); }
+    .features .ic { width: 38px; height: 38px; border-radius: 11px; background: var(--tile); color: var(--tile-ic); display: grid; place-items: center; }
+    .features .ic svg { width: 20px; height: 20px; }
+    .features b { display: block; font-size: 15.5px; margin-bottom: 2px; }
+    .features span { color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .dl { padding: 20px; border-radius: 18px; border: 1px solid #26407a; background: linear-gradient(160deg, rgba(46, 139, 255, 0.14), rgba(14, 20, 36, 0.85)); box-shadow: 0 0 30px rgba(46, 139, 255, 0.12); }
+    .dl .row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .dl .meta { margin-top: 12px; font-size: 13.5px; color: var(--muted); display: flex; gap: 6px 14px; flex-wrap: wrap; }
+    .dl .meta b { color: var(--text-2); font-weight: 600; }
+    .req { margin-top: 14px; font-size: 13.5px; color: var(--muted); }
+    .req b { color: var(--text-2); }
+    .formats { display: flex; flex-wrap: wrap; gap: 6px; margin: -6px 0 22px; }
+    .formats span { font: 600 12px var(--mono); color: var(--accent-text); background: #152242; border: 1px solid #26407a; border-radius: 7px; padding: 2px 8px; }
+
+    /* ---------- faq + footer */
+    section.faq { padding: 80px 0 60px; }
+    section.faq h2 { font-size: 34px; margin: 6px 0 22px; }
+    details { border: 1px solid var(--line); background: var(--panel); border-radius: 14px; padding: 0 18px; margin-bottom: 10px; }
+    details[open] { border-color: #2e4a80; }
+    summary { cursor: pointer; padding: 16px 0; font-weight: 600; list-style: none; display: flex; align-items: center; gap: 12px; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; margin-left: auto; color: var(--accent-text); font-size: 22px; line-height: 1; }
+    details[open] summary::after { content: "–"; }
+    details p { margin: 0 0 16px; color: var(--text-2); }
+    footer { border-top: 1px solid rgba(30, 43, 72, 0.8); padding: 30px 0 50px; color: var(--dim); font-size: 14px; }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center; }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--text); }
+    footer .grow { flex: 1; }
+
+    @media (max-width: 900px) {
+      .p-grid { grid-template-columns: 1fr; }
+      .picks { grid-template-columns: 1fr; }
+      nav.links a.hide-s { display: none; }
+    }
+    @media (max-width: 560px) {
+      .hero { padding-top: 56px; }
+      .p-head { gap: 14px; }
+      .p-head img { width: 64px; height: 64px; }
+      .btn { width: 100%; }
+      .brand small { display: none; }
+      .brand { font-size: 16px; gap: 8px; }
+      nav.links { gap: 0; }
+      nav.links a { padding: 8px 8px; font-size: 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) { .emblem *, .emblem .logos img { animation: none !important; } .emblem .logos img + img { display: none; } }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="#top"><span class="marks"><img src="assets/demvid-logo.png" alt=""><img src="assets/ardem-logo.png" alt=""></span>dem-work <small>by Dandem</small></a>
+      <nav class="links">
+        <a href="#demvid">DemVid</a>
+        <a href="#ardem">ArDem</a>
+        <a class="hide-s" href="#faq">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap">
+        <div class="emblem" aria-hidden="true">
+          <svg viewBox="0 0 236 236">
+            <defs>
+              <radialGradient id="g-glow"><stop offset="0" stop-color="#2e8bff" stop-opacity="0.26"/><stop offset="0.6" stop-color="#2e8bff" stop-opacity="0.06"/><stop offset="1" stop-color="#2e8bff" stop-opacity="0"/></radialGradient>
+              <linearGradient id="g-arc" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3aa6ff"/><stop offset="1" stop-color="#1452ff"/></linearGradient>
+            </defs>
+            <circle cx="118" cy="118" r="118" fill="url(#g-glow)"/>
+            <circle class="r ra" cx="118" cy="118" r="113" fill="none" stroke="#3a6fd8" stroke-width="1.2" stroke-dasharray="1.2 8.4" opacity="0.8"/>
+            <circle cx="118" cy="118" r="98" fill="none" stroke="#16213a" stroke-width="5"/>
+            <circle class="r arc" cx="118" cy="118" r="98" fill="none" stroke="url(#g-arc)" stroke-width="5" stroke-linecap="round" stroke-dasharray="150 466"/>
+            <circle class="r rb" cx="118" cy="118" r="86" fill="none" stroke="#2e8bff" stroke-width="1" stroke-dasharray="16 9 2 9" opacity="0.55"/>
+            <g class="r orb"><circle cx="118" cy="5" r="4.5" fill="#bfe0ff"/></g>
+          </svg>
+          <div class="logos"><img src="assets/demvid-logo.png" alt=""><img src="assets/ardem-logo.png" alt=""></div>
+        </div>
+        <div class="eyebrow" style="margin-top:22px">Windows apps by Dandem</div>
+        <h1 class="grad-text">Your machines and servers, one click away.</h1>
+        <p class="lead">DemVid runs the virtual machines you already have, right on Windows. ArDem keeps the terminal, the files, a code editor and a browser on one SSH connection. Both free.</p>
+        <div class="picks">
+          <div class="pick">
+            <img src="assets/demvid-logo.png" alt="DemVid logo">
+            <h3>DemVid</h3>
+            <p>Virtual machines, reimagined.</p>
+            <div class="go"><a class="btn primary" data-dl="demvid" href="https://github.com/dagafitei72-cpu/demvid-releases/releases/latest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg><span>Download for Windows</span></a><a class="btn ghost" href="#demvid">Learn more</a></div>
+          </div>
+          <div class="pick">
+            <img src="assets/ardem-logo.png" alt="ArDem logo">
+            <h3>ArDem</h3>
+            <p>Terminal, files, editor and browser on one connection.</p>
+            <div class="go"><a class="btn primary" data-dl="ardem" href="https://github.com/dagafitei72-cpu/ardem-releases/releases/latest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg><span>Download for Windows</span></a><a class="btn ghost" href="#ardem">Learn more</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== DemVid -->
+    <section class="product" id="demvid">
+      <div class="wrap">
+        <div class="p-head">
+          <img src="assets/demvid-logo.png" alt="DemVid logo">
+          <div><div class="eyebrow">Virtual machines for Windows</div><h2 class="grad-text">DemVid</h2><p>Opens the virtual machines you already have, as they are, and runs them fast.</p></div>
+        </div>
+        <div class="p-grid">
+          <div>
+            <div class="shot-tabs" data-for="demvid-shot">
+              <button class="on" data-src="assets/demvid-screen.jpg">Running machine</button>
+              <button data-src="assets/demvid-library.jpg">Library</button>
+              <button data-src="assets/demvid-performance.jpg">Live performance</button>
+            </div>
+            <div class="shot"><img id="demvid-shot" src="assets/demvid-screen.jpg" alt="DemVid running a FreeBSD machine" width="1440" height="900" loading="lazy"></div>
+          </div>
+          <div>
+            <p class="desc">Drop in a machine made with another program and it simply starts: disks, network card and settings are read and matched for you. Or install a new system from an ISO.</p>
+            <div class="formats"><span>.vmx</span><span>.vbox</span><span>.ova</span><span>.vmdk</span><span>.vdi</span><span>.vhdx</span><span>.qcow2</span><span>.iso</span></div>
+            <ul class="features">
+              <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></span><div><b>Hardware acceleration</b><span>Uses Windows' own hypervisor: machines run at near-native speed.</span></div></li>
+              <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg></span><div><b>Its own local network</b><span>Every machine keeps a fixed address that Windows reaches directly; share ports with your whole network.</span></div></li>
+              <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></span><div><b>Snapshots, clones, export</b><span>Freeze a machine, copy it in a second, export its disks to any common format.</span></div></li>
+              <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v10"/><path d="M18.4 6.6a9 9 0 1 1-12.77.04"/></svg></span><div><b>Server mode</b><span>Machines keep running with the window closed and can start together with Windows.</span></div></li>
+              <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span><div><b>Live performance and updates</b><span>Processor, memory, disk and network charts; new versions install themselves.</span></div></li>
+            </ul>
+            <div class="dl">
+              <div class="row"><a class="btn primary" data-dl="demvid" href="https://github.com/dagafitei72-cpu/demvid-releases/releases/latest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg><span>Download DemVid</span></a></div>
+              <div class="meta"><span data-info="demvid">—</span><a href="https://github.com/dagafitei72-cpu/demvid-releases/releases">All versions</a></div>
+              <div class="req"><b>Needs:</b> <span>Windows 10 or 11 (64-bit), a processor with virtualization, 8 GB of RAM or more.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== ArDem -->
+    <section class="product" id="ardem">
+      <div class="wrap">
+        <div class="p-head">
+          <img src="assets/ardem-logo.png" alt="ArDem logo">
+          <div><div class="eyebrow">SSH client for Windows</div><h2 class="grad-text">ArDem</h2><p>The terminal, the files, a code editor and a browser — on one connection.</p></div>
+        </div>
+        <div class="p-grid">
+          <div>
+            <div class="shot"><img src="assets/ardem-home.jpg" alt="ArDem with a list of servers" width="1440" height="900" loading="lazy"></div>
+          </div>
+          <div>
+            <p class="desc">Working on a server is not one activity: you read a log, find the file, change it, restart the service and check the result. ArDem opens one SSH session and shares it between everything you do.</p>
+            <ul class="features">
+              <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg></span><div><b>A fast terminal</b><span>Tabs, split panes, input synced across them, search, session recording.</span></div></li>
+              <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><div><b>Two-pane file manager</b><span>SFTP or FTP, drag and drop from Explorer, compare and synchronise folders.</span></div></li>
+              <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span><div><b>An editor on the server</b><span>Writes straight to the server; one omni bar for files, commands and symbols; diff against the live file.</span></div></li>
+              <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><div><b>A browser tied to the session</b><span>Docked next to the files, reaching your tunnels.</span></div></li>
+              <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span><div><b>Security first</b><span>An encrypted vault (AES-256) that locks itself, host keys pinned, an audit log.</span></div></li>
+            </ul>
+            <div class="dl">
+              <div class="row">
+                <a class="btn primary" data-dl="ardem" href="https://github.com/dagafitei72-cpu/ardem-releases/releases/latest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg><span>Download ArDem</span></a>
+                <a class="btn ghost" data-dl="ardem-portable" href="https://github.com/dagafitei72-cpu/ardem-releases/releases/latest">Portable version</a>
+              </div>
+              <div class="meta"><span data-info="ardem">—</span><a href="https://github.com/dagafitei72-cpu/ardem-releases/releases">All versions</a></div>
+              <div class="req"><b>Needs:</b> <span>Windows 10 or 11 (64-bit). The portable version runs without installing.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== FAQ -->
+    <section class="faq" id="faq">
+      <div class="wrap">
+        <div class="eyebrow">Good to know</div>
+        <h2 class="grad-text">Questions</h2>
+        <details><summary>Windows says “Windows protected your PC”. Is it safe?</summary><p>The installers are new and not yet signed with a code-signing certificate, so SmartScreen does not know them yet. Press “More info”, then “Run anyway”. Every file is published only on this site’s GitHub page and scanned before release.</p></details>
+        <details><summary>Are they really free?</summary><p>Yes. DemVid is freeware; ArDem is open source under the MIT license. No accounts, no ads, nothing to subscribe to.</p></details>
+        <details><summary>How do I get new versions?</summary><p>DemVid looks for updates by itself and installs them when you restart it. For ArDem, download the new installer from this page and run it: your servers and the vault stay as they are.</p></details>
+        <details><summary>Where do my machines, servers and passwords go?</summary><p>Nowhere. Everything stays on your PC: virtual machines in a folder you choose, servers and the encrypted vault in your Windows profile. The apps only go online to fetch updates (DemVid) or to reach your own servers (ArDem).</p></details>
+        <details><summary>What open-source parts do they use?</summary><p>DemVid runs its machines with QEMU; ArDem builds on xterm.js, CodeMirror and ssh2. Licenses come with each app, and the source of QEMU and its firmware is attached to every DemVid release.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 Dandem · dem-work.com</span>
+      <span class="grow"></span>
+      <a href="https://github.com/dagafitei72-cpu/demvid-releases/releases">DemVid <span>releases</span></a>
+      <a href="https://github.com/dagafitei72-cpu/ardem-releases/releases">ArDem <span>releases</span></a>
+    </div>
+  </footer>
+
+  <script>
+    let lang = 'en';
+
+    // Screenshot tabs
+    document.querySelectorAll('.shot-tabs').forEach(tabs => tabs.addEventListener('click', e => {
+      const b = e.target.closest('button');
+      if (!b) return;
+      tabs.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+      document.getElementById(tabs.dataset.for).src = b.dataset.src;
+    }));
+
+    // Download buttons point straight at the newest installer published on GitHub.
+    const REPOS = { demvid: 'dagafitei72-cpu/demvid-releases', ardem: 'dagafitei72-cpu/ardem-releases' };
+    const latest = {};
+    const mb = n => `${Math.round(n / 1048576)} MB`;
+    function showInfo() {
+      for (const app of Object.keys(REPOS)) {
+        const r = latest[app];
+        const el = document.querySelector(`[data-info="${app}"]`);
+        if (!el || !r) continue;
+        const date = new Date(r.published_at).toLocaleDateString(lang === 'ro' ? 'ro-RO' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+        const setup = r.assets.find(a => /-Setup-.*\.exe$/i.test(a.name));
+        el.innerHTML = `<b>${lang === 'ro' ? 'Versiunea' : 'Version'} ${r.tag_name.replace(/^v/, '')}</b> · ${setup ? mb(setup.size) + ' · ' : ''}${date}`;
+      }
+    }
+    async function load(app) {
+      let r = null;
+      try { r = JSON.parse(sessionStorage.getItem(`rel-${app}`) || 'null'); } catch (e) { /* none */ }
+      if (!r) {
+        const res = await fetch(`https://api.github.com/repos/${REPOS[app]}/releases/latest`, { headers: { Accept: 'application/vnd.github+json' } });
+        if (!res.ok) return;
+        r = await res.json();
+        try { sessionStorage.setItem(`rel-${app}`, JSON.stringify({ tag_name: r.tag_name, published_at: r.published_at, assets: r.assets.map(a => ({ name: a.name, size: a.size, browser_download_url: a.browser_download_url })) })); } catch (e) { /* fine */ }
+      }
+      latest[app] = r;
+      const setup = r.assets.find(a => /-Setup-.*\.exe$/i.test(a.name));
+      const portable = r.assets.find(a => /-Portable-.*\.exe$/i.test(a.name));
+      if (setup) document.querySelectorAll(`[data-dl="${app}"]`).forEach(a => { a.href = setup.browser_download_url; });
+      if (portable) document.querySelectorAll(`[data-dl="${app}-portable"]`).forEach(a => { a.href = portable.browser_download_url; });
+      showInfo();
+    }
+    Object.keys(REPOS).forEach(app => load(app).catch(() => { /* the buttons keep the release page */ }));
+  </script>
+</body>
+</html>

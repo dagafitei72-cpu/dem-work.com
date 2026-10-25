@@ -41,7 +41,8 @@
     }
     a { color: var(--accent-text); text-decoration: none; }
     a:hover { color: #a9cdff; }
-    img { max-width: 100%; display: block; }
+    img { max-width: 100%; height: auto; display: block; }
+    .brand .marks img, .pick img, .p-head img { object-fit: contain; }
     .wrap { width: min(1160px, calc(100% - 32px)); margin: 0 auto; }
     .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--eyebrow); }
     .grad-text { background: linear-gradient(135deg, #fff 20%, #7fb4ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -103,6 +104,7 @@
     .p-head p { margin: 0; color: var(--text-2); font-size: 18px; }
     .p-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 34px; align-items: start; }
     .shot { border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: #05070d; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55), 0 0 40px rgba(46, 139, 255, 0.12); }
+    .shot img { width: 100%; }
     .shot-tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
     .shot-tabs button { border: 1px solid var(--line-2); background: #0f1524; color: var(--text-2); font: 600 13px var(--font); padding: 6px 13px; border-radius: 9px; cursor: pointer; }
     .shot-tabs button.on { background: var(--grad); color: #fff; border-color: transparent; box-shadow: 0 2px 14px rgba(46, 139, 255, 0.45); }

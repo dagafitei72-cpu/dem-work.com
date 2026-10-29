@@ -324,9 +324,10 @@
               <div class="row">
                 <a class="btn primary" data-dl="ardem" href="https://github.com/dagafitei72-cpu/ardem-releases/releases/latest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg><span>Download ArDem</span></a>
                 <a class="btn ghost" data-dl="ardem-portable" href="https://github.com/dagafitei72-cpu/ardem-releases/releases/latest">Portable version</a>
+                <a class="btn ghost" data-dl="ardem-linux" href="https://github.com/dagafitei72-cpu/ardem-releases/releases/latest">Linux (AppImage)</a>
               </div>
               <div class="meta"><span data-info="ardem">—</span><a href="https://github.com/dagafitei72-cpu/ardem-releases/releases">All versions</a></div>
-              <div class="req"><b>Needs:</b> <span>Windows 10 or 11 (64-bit). The portable version runs without installing.</span></div>
+              <div class="req"><b>Needs:</b> <span>Windows 10/11 (64-bit) or Linux (x86_64, AppImage). The portable version runs without installing.</span></div>
             </div>
           </div>
           <ul class="features">
@@ -411,6 +412,8 @@
       const portable = r.assets.find(a => /-Portable-.*\.exe$/i.test(a.name));
       if (setup) document.querySelectorAll(`[data-dl="${app}"]`).forEach(a => { a.href = setup.browser_download_url; });
       if (portable) document.querySelectorAll(`[data-dl="${app}-portable"]`).forEach(a => { a.href = portable.browser_download_url; });
+      const linux = r.assets.find(a => /\.AppImage$/i.test(a.name));
+      if (linux) document.querySelectorAll(`[data-dl="${app}-linux"]`).forEach(a => { a.href = linux.browser_download_url; });
       showInfo();
     }
     Object.keys(REPOS).forEach(app => load(app).catch(() => { /* the buttons keep the release page */ }));

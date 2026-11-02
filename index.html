@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DemVid &amp; ArDem — Windows apps by Dandem</title>
-  <meta name="description" content="DemVid runs the virtual machines you already have on Windows. ArDem keeps terminal, files, editor and browser on one SSH connection. Free downloads.">
+  <title>DemVid, ArDem &amp; DemBase — Windows apps by Dandem</title>
+  <meta name="description" content="DemVid runs the virtual machines you already have on Windows. ArDem keeps terminal, files, editor and browser on one SSH connection. DemBase is a database client for MySQL and PostgreSQL, with SSH tunnels. Free downloads.">
   <meta name="theme-color" content="#e0ebfc">
-  <meta property="og:title" content="DemVid & ArDem — Windows apps by Dandem">
-  <meta property="og:description" content="Virtual machines, reimagined — and an SSH client that keeps everything on one connection.">
+  <meta property="og:title" content="DemVid, ArDem & DemBase — Windows apps by Dandem">
+  <meta property="og:description" content="Virtual machines, an SSH client, and a database client — three free Windows apps by Dandem.">
   <meta property="og:image" content="https://dem-work.com/assets/og.jpg">
   <meta property="og:url" content="https://dem-work.com/">
   <link rel="icon" href="favicon.ico">
@@ -111,7 +111,7 @@
     .hero { padding: 84px 0 40px; text-align: center; }
     .hero h1 { font-size: clamp(36px, 6vw, 64px); line-height: 1.08; margin: 14px 0 18px; font-weight: 700; letter-spacing: -0.02em; }
     .hero p.lead { max-width: 720px; margin: 0 auto; color: var(--text-2); font-size: clamp(16px, 2vw, 19px); }
-    .picks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 46px auto 0; max-width: 900px; text-align: left; }
+    .picks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin: 46px auto 0; max-width: 1060px; text-align: left; }
     .pick { position: relative; overflow: hidden; display: grid; grid-template-columns: auto 1fr; gap: 6px 18px; align-items: center; padding: 22px; border-radius: 20px; background: var(--panel); border: 1px solid var(--line); transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; }
     .pick:hover { border-color: var(--line-hi); transform: translateY(-3px); box-shadow: var(--card-shadow); }
     .pick img { grid-row: span 2; width: 76px; height: 76px; filter: drop-shadow(0 0 18px rgba(46, 139, 255, calc(0.45 * var(--ga)))); }
@@ -231,6 +231,7 @@
       <nav class="links">
         <a href="#demvid">DemVid</a>
         <a href="#ardem">ArDem</a>
+        <a href="#dembase">DemBase</a>
         <a class="hide-s" href="#faq">FAQ</a>
       </nav>
       <button class="theme-btn" id="theme" type="button" aria-label="Switch to dark theme" title="Switch to dark theme"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
@@ -270,6 +271,12 @@
             <h3>ArDem</h3>
             <p>Terminal, files, editor and browser on one connection.</p>
             <div class="go"><a class="btn primary" data-dl="ardem" href="https://github.com/dagafitei72-cpu/ardem-releases/releases/latest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg><span>Download for Windows</span></a><a class="btn ghost" href="#ardem">Learn more</a></div>
+          </div>
+          <div class="pick">
+            <img src="assets/dembase-logo.png" alt="DemBase logo">
+            <h3>DemBase</h3>
+            <p>A database client for MySQL and PostgreSQL, with SSH tunnels.</p>
+            <div class="go"><a class="btn primary" data-dl="dembase" href="https://github.com/dagafitei72-cpu/dembase-releases/releases/latest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg><span>Download for Windows</span></a><a class="btn ghost" href="#dembase">Learn more</a></div>
           </div>
         </div>
       </div>
@@ -341,6 +348,39 @@
       </div>
     </section>
 
+    <!-- ===================================================== DemBase -->
+    <section class="product" id="dembase">
+      <div class="wrap">
+        <div class="p-head">
+          <img src="assets/dembase-logo.png" alt="DemBase logo">
+          <div><div class="eyebrow">Database client for Windows</div><h2 class="grad-text">DemBase</h2><p>Browse, query and edit MySQL and PostgreSQL — over a direct link or an SSH tunnel.</p></div>
+        </div>
+        <a class="shot" href="assets/dembase-screen.jpg"><img src="assets/dembase-screen.jpg" alt="DemBase — an ER diagram of a schema" width="1200" height="762" loading="lazy"><span class="zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg><span>Click to enlarge</span></span></a>
+        <div class="p-info">
+          <div>
+            <p class="desc">Connect to your databases — directly or through an SSH tunnel to your server — and work the way you expect: a tree of tables, an editable grid, a SQL editor with autocomplete, and a tab for everything you have open.</p>
+            <div class="formats"><span>MySQL</span><span>MariaDB</span><span>PostgreSQL</span><span>SSH tunnel</span><span>.csv</span><span>.json</span><span>.sql</span></div>
+            <div class="dl">
+              <div class="row">
+                <a class="btn primary" data-dl="dembase" href="https://github.com/dagafitei72-cpu/dembase-releases/releases/latest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg><span>Download DemBase</span></a>
+                <a class="btn ghost" data-dl="dembase-portable" href="https://github.com/dagafitei72-cpu/dembase-releases/releases/latest">Portable version</a>
+                <a class="btn ghost" data-dl="dembase-linux" href="https://github.com/dagafitei72-cpu/dembase-releases/releases/latest">Linux (AppImage)</a>
+              </div>
+              <div class="meta"><span data-info="dembase">—</span><a href="https://github.com/dagafitei72-cpu/dembase-releases/releases">All versions</a></div>
+              <div class="req"><b>Needs:</b> <span>Windows 10/11 (64-bit) or Linux (x86_64, AppImage). The portable version runs without installing.</span></div>
+            </div>
+          </div>
+          <ul class="features">
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg></span><div><b>Two engines, one app</b><span>MySQL / MariaDB and PostgreSQL — browse, run SQL, edit rows in a grid.</span></div></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span><div><b>Built-in SSH tunnels</b><span>Reach a database on a VPS through SSH, by private key or password.</span></div></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/></svg></span><div><b>Editable data grid</b><span>Double-click to edit, add and delete rows, save with one click. Sort and export.</span></div></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span><div><b>SQL editor</b><span>Syntax highlighting and autocomplete for your tables and columns; run whole scripts.</span></div></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span><div><b>Design &amp; tools</b><span>Table designer, ER diagrams, import/export, backup, server monitor — and it updates itself.</span></div></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <!-- ===================================================== FAQ -->
     <section class="faq" id="faq">
       <div class="wrap">
@@ -361,6 +401,7 @@
       <span class="grow"></span>
       <a href="https://github.com/dagafitei72-cpu/demvid-releases/releases">DemVid <span>releases</span></a>
       <a href="https://github.com/dagafitei72-cpu/ardem-releases/releases">ArDem <span>releases</span></a>
+      <a href="https://github.com/dagafitei72-cpu/dembase-releases/releases">DemBase <span>releases</span></a>
     </div>
   </footer>
 
@@ -385,7 +426,7 @@
     }));
 
     // Download buttons point straight at the newest installer published on GitHub.
-    const REPOS = { demvid: 'dagafitei72-cpu/demvid-releases', ardem: 'dagafitei72-cpu/ardem-releases' };
+    const REPOS = { demvid: 'dagafitei72-cpu/demvid-releases', ardem: 'dagafitei72-cpu/ardem-releases', dembase: 'dagafitei72-cpu/dembase-releases' };
     const latest = {};
     const mb = n => `${Math.round(n / 1048576)} MB`;
     function showInfo() {

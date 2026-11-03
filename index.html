@@ -130,11 +130,12 @@
     .emblem .orb { animation: spin 3.4s linear infinite; filter: drop-shadow(0 0 5px #3aa6ff); }
     .emblem .orb circle { fill: var(--em-orb); }
     .emblem .logos { position: absolute; inset: 0; display: grid; place-items: center; }
-    .emblem .logos img { position: absolute; width: 50%; animation: swap 8s ease-in-out infinite, float 1.7s ease-in-out infinite alternate; filter: drop-shadow(0 0 22px rgba(46, 139, 255, calc(0.7 * var(--ga)))); }
-    .emblem .logos img + img { animation-delay: -4s, 0s; }
+    .emblem .logos img { position: absolute; width: 50%; animation: swap 12s ease-in-out infinite, float 1.7s ease-in-out infinite alternate; filter: drop-shadow(0 0 22px rgba(46, 139, 255, calc(0.7 * var(--ga)))); }
+    .emblem .logos img:nth-child(2) { animation-delay: -4s, 0s; }
+    .emblem .logos img:nth-child(3) { animation-delay: -8s, 0s; }
     @keyframes spin { to { transform: rotate(360deg); } }
     @keyframes float { from { translate: 0 3px; } to { translate: 0 -5px; } }
-    @keyframes swap { 0%, 42% { opacity: 1; scale: 1; } 50%, 92% { opacity: 0; scale: 0.9; } 100% { opacity: 1; scale: 1; } }
+    @keyframes swap { 0%, 28% { opacity: 1; scale: 1; } 39%, 89% { opacity: 0; scale: 0.9; } 100% { opacity: 1; scale: 1; } }
 
     /* ---------- product sections */
     section.product { padding: 90px 0 40px; scroll-margin-top: 64px; }
@@ -227,7 +228,7 @@
 <body>
   <header class="top">
     <div class="wrap">
-      <a class="brand" href="#top"><span class="marks"><img src="assets/demvid-logo.png" alt=""><img src="assets/ardem-logo.png" alt=""></span>dem-work <small>by Dandem</small></a>
+      <a class="brand" href="#top"><span class="marks"><img src="assets/demvid-logo.png" alt=""><img src="assets/ardem-logo.png" alt=""><img src="assets/dembase-logo.png" alt=""></span>dem-work <small>by Dandem</small></a>
       <nav class="links">
         <a href="#demvid">DemVid</a>
         <a href="#ardem">ArDem</a>
@@ -254,7 +255,7 @@
             <circle class="r rb" cx="118" cy="118" r="86" fill="none" stroke="#2e8bff" stroke-width="1" stroke-dasharray="16 9 2 9" opacity="0.55"/>
             <g class="r orb"><circle cx="118" cy="5" r="4.5" fill="#bfe0ff"/></g>
           </svg>
-          <div class="logos"><img src="assets/demvid-logo.png" alt=""><img src="assets/ardem-logo.png" alt=""></div>
+          <div class="logos"><img src="assets/demvid-logo.png" alt=""><img src="assets/ardem-logo.png" alt=""><img src="assets/dembase-logo.png" alt=""></div>
         </div>
         <div class="eyebrow" style="margin-top:22px">Windows apps by Dandem</div>
         <h1 class="grad-text">Your machines and servers, one click away.</h1>
